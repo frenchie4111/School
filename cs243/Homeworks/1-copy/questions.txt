@@ -1,0 +1,66 @@
+Lab 1: System Intro
+Name: Michael Lyons (mdl7240)
+
+1. When you first log in, what is the absolute path of your home directory?
+
+	/home/stu9/s11/mdl7240/:	
+
+2. What command do you use to display the contents of your current
+working directory, such that it shows the difference between
+files and directories?
+
+   ls 
+
+3. What command would you use to change your working directory from
+your home directory to the existing subdirectory Courses/?
+
+   cd 
+
+4. Within the Courses/ subdirectory, what command would you use to
+create the subdirectory CS4/ for this course?
+
+   mkdir CS4 
+
+5. When warning.c is compiled as: 
+        gcc -c warning.c
+    There is no indication of any warnings/problems.
+    
+    a.) What compiler flag is used to enable the display of warnings?
+    
+        <<< YOUR ANSWER HERE >>>
+    
+    b.) Explain, in your own words, all the warnings in warning.c.
+    
+        <<< YOUR ANSWER HERE >>>
+    
+    c.) Fix warning.c so it compiles without warning and runs correctly.
+
+6. What compiler flag is used to compile C programs using the ISO C99 
+standard?
+
+    <<< YOUR ANSWER HERE >>>
+   
+7. Put the four steps of compilation process into their proper order from
+first to last.
+
+    A. Assemble
+    B. Link
+    C. Preprocess
+    D. Compile
+    
+    <<< YOUR ANSWER HERE >>>
+    
+8. Given the program files main.c, circle.h and circle.c.
+    a.) What commands would you use to compile the source files
+        into object files?
+        
+        <<< YOUR ANSWER HERE >>>
+        
+    b.) What command would you use to link the object files 
+        into an executable named broken?
+        
+        <<< YOUR ANSWER HERE >>>
+        
+    c.) Explain why the program compiles but does not link.
+    
+        <<< YOUR ANSWER HERE >>>
