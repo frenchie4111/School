@@ -16,7 +16,31 @@ void printIntArray( int array[], int count ) {
 
 // Major Functions
 
+void tree_add( TreeNode** root, const int element ) {
+	TreeNode *currentNode = *root;
+	while( currentNode ) {
+		if( element <= currentNode->data ) {
+			currentNode = currentNode->left;
+		}
+		else {
+			currentNode = currentNode->right;
+		}
+	}
+}
 
+void build_tree( TreeNode** root, const int elements[], const int count ) {
+	for( int i = 0; i < count; i++ ) {
+		tree_add( root, elements[i] );
+	}
+}
+
+void traverse( const TreeNode* root, const TraversalType type ) {
+
+}
+
+void cleanup_tree( TreeNode* root ) {
+
+}
 
 /**
  * Main function
