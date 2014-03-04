@@ -1,0 +1,82 @@
+<div class='left two_thirds_width content_box'>
+	<div id="promo_box">
+		<div id="main_promo_text">
+			<h2><a class='blue'>Share</a> your tools with neighbors who need them</h2>
+		</div>
+		<table>
+			<tr>
+				<td width="100px" height="100px" style='text-align: center;'>
+					<img src="/static/images/toolimage.png" style='height: 80px;' />
+				</td>
+				<td class='promo_text'>
+					<h3><a class='blue'>Lend</a> the tools you don't need to friends</h3>
+				</td>
+			</tr>
+			<tr>
+				<td width="100px" height="100px" style='text-align: center;'>
+					<img src="/static/images/borrow.png" style='height: 80px;' />
+				</td>
+				<td class='promo_text'>
+					<h3><a class='blue'>Borrow</a> your friends unneeded tools</h3>
+				</td>
+			</tr>
+			<tr>
+				<td width="100px" height="100px">
+					<img src="/static/images/shed.png" height="100px" />
+				</td>
+				<td class='promo_text'>
+					<h3><a class='blue'>Contribute</a> to community owned toolsheds</h3>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class='right one_third_width content_box'>
+	<div id="sign_in_box">
+		<div>
+			<h2>Register</h2>
+		</div>
+		<form method='post' action=''>
+			{% csrf_token %}
+			<div class="sign_in_form_item">
+				<div class='right'>
+					<input name="first_name" onfocus="if (this.value=='First Name') this.value = ''" onblur="if (this.value=='') this.value = 'First Name'" type="text" value="First Name">
+				</div>
+			</div>
+			<div class="sign_in_form_item">
+				<div class='right'>
+					<input name="last_name" onfocus="if (this.value=='Last Name') this.value = ''" onblur="if (this.value=='') this.value = 'Last Name'" type="text" value="Last Name">
+				</div>
+			</div>
+			<div class="sign_in_form_item">
+				<div class='right'>
+					<input name="username" onfocus="if (this.value=='Email') this.value = ''" onblur="if (this.value=='') this.value = 'Email'" type="text" value="Email">
+				</div>
+			</div>
+			<div class='float_fix'></div>
+			<div class="sign_in_form_item">
+				<div class='right'>
+					<input name="password" onfocus="if (this.value=='Password') this.value = ''" onblur="if (this.value=='') this.value = 'Password'" type="password" value="Password" />
+				</div>
+			</div>
+			<div class="sign_in_form_item">
+				<div class='right'>
+					<input name="password2" onfocus="if (this.value=='Password') this.value = ''" onblur="if (this.value=='') this.value = 'Password'" type="password" value="Password" />
+				</div>
+			</div>
+			<div class="sign_in_form_item">
+				<div class='right'>
+					<input name="zipcode" onfocus="if (this.value=='Zipcode') this.value = ''" onblur="if (this.value=='') this.value = 'Zipcode'" type="text" value="Zipcode">
+				</div>
+			</div>
+			<div class='sign_in_form_item'>
+				<input type='submit' id='sign_in_submit' />
+			</div>
+			<div class='float_fix'></div>
+		</form>
+		<p>
+			Don't have an account yet? <a class='blut'>Sign Up</a>
+		</p>
+		<div id='sign_in_spacer'></div>
+	</div>
+</div>

@@ -1,0 +1,36 @@
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from ToolShare.helpers import isNumber
+from ToolShare.apps.ProfileManager.models import UserProfile
+from ToolShare.apps.ShareZoneManager.models import ShareZone
+# Create your views here.
+
+def index(request):
+	if( request.method == "GET" ):
+		return render( request, "main.html", { "child" : "Registration/index.html" } )
+	elif( request.method == "POST" ):
+		try:
+			username = request.POST["username"]
+			# Need to validate email( username ) using standard email regex
+			password = request.POST["password"]
+			password2 = request.POST["password2"]
+
+			# Check if passwords match
+			if( password != password2 ):
+				return render( request, "main.html", { "child" : "Registration/index.html", "flash" : "Passwords do not match", "flash_negative" : True } )
+
+			zipcode = request.POST["zipcode"]
+			# Check if zipcode is a number
+			if( not isNumber( zipcode ) ):
+				return render( request, "main.html", { "child" : "Registration/index.html",  "flash" : "Zipcode is a not a number", "flash_negative" : True } )
+
+		except (KeyError):
+			return HttpResponse("No")
+		else:
+			sharezone = ShareZone.objects.get_or_create( zipcode=zipcode )
+			user = User.objects.create_user( username, username, password )
+
+			UserProfile.objects.create( ShareZone=sharezone[0], user=user )
+			pass
+		return render( request, "main.html", { "child" : "Registration/index.html",  "flash" : "Account creation successful" } )

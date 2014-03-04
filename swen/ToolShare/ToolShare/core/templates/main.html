@@ -1,0 +1,44 @@
+<!DOCTYPE html5>
+<html>
+<head>
+	<link href="http://fonts.googleapis.com/css?family=Shanti" media="screen" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/static/reset.css" />
+	<link rel="stylesheet" type="text/css" href="/static/main.css" />
+	<link rel="stylesheet" type="text/css" href="/static/landing.css" />
+</head>
+<body>
+	<div id='header'>
+		<div class='max_width centered'>
+			<div class='left'>
+				<h1><a class='blue'>Tool</a> Share</h1>	
+			</div>
+			<div class='right' id="menu_area">
+				<ul>
+					<li><a class='blue'>Sign Up</a></li>
+					<li>Log In</li>
+				</ul>
+			</div>
+		</div>
+		<div class='float_fix'></div>
+	</div>
+
+	{% if flash %}
+		<div class='max_width centered'>
+			{% if flash_negative %}
+				<div id="flash_box_negative" class="content_box">
+			{% else %}
+				<div id="flash_box_positive" class="content_box">
+			{% endif %}
+			{{ flash }}
+			</div>
+		</div>
+	{% endif %}
+
+	<div class='max_width centered'>
+		{% if child %}
+			{% include child %}
+		{% endif %}
+		<div class='float_fix'></div>
+	</div>
+</body>
+</html>

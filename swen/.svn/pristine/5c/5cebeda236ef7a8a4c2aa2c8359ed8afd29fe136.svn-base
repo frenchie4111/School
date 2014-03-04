@@ -1,0 +1,52 @@
+__________
+|Format:  |
+|Table    |
+|	Column|
+|_________|	
+Users
+	Password
+	Name
+	Zipcode (Foreign Key to ShareZone)
+	ID
+	
+Tools
+	ID
+	Name
+	OwnerID
+	Description
+	
+ShareZones
+	Zipcode - Foreign Key
+	Zipcode Name?
+	
+Loans
+	Loan State Id
+	Tool Id
+	Borrower ID? Foreign Key to Users
+	pick up date
+	return date
+	
+Sheds
+	Owner ID
+	Address
+	Name
+	Type
+	ShareZone - zipcode
+	Capacity
+	status
+	
+
+Loan State
+	State ID
+	requested
+	approved
+	borrowed
+	return requested
+	returned approval
+	overdue
+	
+Categories
+	Name
+	ID
+	
+Statistics

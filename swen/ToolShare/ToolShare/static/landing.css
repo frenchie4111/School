@@ -1,0 +1,82 @@
+#promo_box {
+	padding: 10px;
+}
+
+h2 {
+	font-size: 25px;
+	text-align: center;
+}
+
+h3 {
+	font-size: 20px;
+}
+
+#promo_box table {
+	margin: 0px auto;
+}
+
+#promo_box table td {
+	vertical-align: middle;
+}
+
+#main_promo_text {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.promo_text {
+	padding-left: 20px;
+}
+
+#sign_in_box h2 {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#sign_in_box {
+	font-size: 18px;
+	padding: 10px;
+}
+
+#sign_in_box h3 {
+	font-size: 20px;
+	text-align: center;
+	margin: 5px;
+}
+
+#sign_in_box input[type="text"], #sign_in_box input[type="password"] {
+	width: 278px;
+	height: 30px;
+	font-size: 20px;
+}
+
+#sign_in_box .sign_in_form_item {
+	height: 30px;
+	padding-top: 10px;
+}
+
+#sign_in_box .sign_in_form_text {
+	padding-top: 4px;
+	display: inline-block;
+}
+
+#sign_in_submit {
+	background-color: #9facb9;
+	width: 278px;
+	font-family: 'Shanti', sans-serif;
+	font-size: 18px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+
+	border: 1px solid #E1DED3;
+}
+
+#sign_in_box p {
+	padding-top: 10px;
+	font-size: 14px;
+	text-align: center;
+}
+
+#sign_in_box #sign_in_spacer {
+	height: 10px;
+}
