@@ -1,7 +1,7 @@
 /**
  * File: bst.c
  * @author mdl7240 : Mike Lyons
- * $Id$
+ * $Id: 08919f3 Added comments to bst.c $
  */
 #include <stdlib.h>
 #include <stdio.h>
@@ -197,4 +197,63 @@ int main( int argc, const char* argv[] ) {
 	}
 }
 
-// $Log$
+// $Log: $ 
+// commit 08919f3420da2adce3c2973c76aa30040e71d096
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Mar 6 10:11:06 2014 -0500
+// 
+//     Added comments to bst.c
+// 
+// commit 1f97aba567f9bc0bdac08a2d2fea5fa5331f991f
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Mar 6 10:02:22 2014 -0500
+// 
+//     Fixed postorder traverse
+// 
+// commit 904bd272459dc312b957b99e8fefcdc6f918938b
+// Merge: f9179f4 8268406
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Mar 6 09:57:15 2014 -0500
+// 
+//     Merge branch 'master' of https://github.com/frenchie4111/School
+//     
+//     Conflicts:
+//     	cs243/Homeworks/5/bst.c
+// 
+// commit f9179f4d1cd268718518b39edba828a8fcdfcb7e
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Mar 6 09:56:46 2014 -0500
+// 
+//     Updated error messages
+// 
+// commit 82684068bb4f2f9de9117c897b0ed3353ed1e8a8
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Mar 6 09:54:20 2014 -0500
+// 
+//     Added input.2 and default case statement for traverse
+// 
+// commit 99c163b485868fb65913eae2e0183fce15b6a3a8
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Mar 6 09:45:36 2014 -0500
+// 
+//     Fixed Valgrind unitialized error
+// 
+// commit 4466081ebca5601a16e144ffd0033555da6d3b54
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Mar 6 09:34:17 2014 -0500
+// 
+//     cs Homework 5 complete
+// 
+// commit 1f398cf3cb3fd9c8043fc51e658cfdb5a1ddc1dc
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Tue Mar 4 12:22:56 2014 -0500
+// 
+//     Added stubs for functions from bst.h
+// 
+// commit 16c706faad1bb7c24d6a00f7de77628753fed8e2
+// Author: MICHAEL DOUGLAS LYONS <mdl7240@cs.rit.edu>
+// Date:   Tue Mar 4 11:53:25 2014 -0500
+// 
+//     Initial Commit
+// 
+
