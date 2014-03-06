@@ -107,25 +107,30 @@ void cleanup_tree( TreeNode* root ) {
 int main( int argc, const char* argv[] ) {
 	if( argc == 2 ) {
 		int count = atoi( argv[1] );
-		int inputValues[ count ];
-		printf("Enter %d integer values to place in tree:\n", count);
-		for( int i = 0; i < count; i++ ) {
-			int inputNumber = 0;
-			scanf( "%d", &inputNumber );
-			inputValues[ i ] = inputNumber;	
+		if( count > 0 ) {
+			int inputValues[ count ];
+			printf("Enter %d integer values to place in tree:\n", count);
+			for( int i = 0; i < count; i++ ) {
+				int inputNumber = 0;
+				scanf( "%d", &inputNumber );
+				inputValues[ i ] = inputNumber;	
+			}
+			printf("Input Values:\n");
+			printIntArray( inputValues, count );
+
+			TreeNode *treeRoot = NULL;
+			build_tree( &treeRoot, inputValues, count );
+
+			traverse( treeRoot, PREORDER );
+			traverse( treeRoot, INORDER );
+			traverse( treeRoot, POSTORDER );
+
+			cleanup_tree( treeRoot );
 		}
-		printf("Input Values:\n");
-		printIntArray( inputValues, count );
-
-		TreeNode *treeRoot = NULL;
-		build_tree( &treeRoot, inputValues, count );
-
-		traverse( treeRoot, PREORDER );
-		traverse( treeRoot, INORDER );
-		traverse( treeRoot, POSTORDER );
-
-		cleanup_tree( treeRoot );
+		else {
+			printf("# must be greater than 0\n")
+		}
 	} else {
-		printf("Invalid Arguments");
+		printf("Usage: bst #\n");
 	}
 }
