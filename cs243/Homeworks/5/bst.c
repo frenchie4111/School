@@ -91,6 +91,8 @@ void traverse( const TreeNode* root, const TraversalType type ) {
 			printf("Postorder:\n");
 			postorder_traverse( root );
 			break;
+		default:
+			break;
 	}
 }
 
