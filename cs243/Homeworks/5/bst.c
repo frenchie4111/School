@@ -18,6 +18,14 @@ void printIntArray( int array[], int count ) {
 
 // Major Functions
 
+TreeNode *new_node( const int element ) {
+	TreeNode *newNode = (TreeNode *)malloc( sizeof( TreeNode ) );
+	newNode->data = element;
+	newNode->left = NULL;
+	newNode->right = NULL;
+	return newNode;
+}
+
 void tree_add( TreeNode** root, const int element ) {
 	TreeNode **currentNode = root;
 
@@ -30,8 +38,7 @@ void tree_add( TreeNode** root, const int element ) {
 		}
 	}
 
-	*currentNode = (TreeNode *)malloc( sizeof( TreeNode ) );
-	(*currentNode)->data = element;
+	*currentNode = new_node( element );
 }
 
 void build_tree( TreeNode** root, const int elements[], const int count ) {
@@ -114,7 +121,7 @@ int main( int argc, const char* argv[] ) {
 			scanf( "%d", &inputNumber );
 			inputValues[ i ] = inputNumber;	
 		}
-		printf("Input Values:\n");
+		printf("Input values:\n");
 		printIntArray( inputValues, count );
 
 		TreeNode *treeRoot = NULL;
