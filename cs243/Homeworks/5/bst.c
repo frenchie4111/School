@@ -69,10 +69,10 @@ void inorder_traverse( const TreeNode* root ) {
 
 void postorder_traverse( const TreeNode* root ) {
 	if( root->left ) {
-		inorder_traverse( root->left );
+		postorder_traverse( root->left );
 	}
 	if( root->right ) {
-		inorder_traverse( root->right );
+		postorder_traverse( root->right );
 	}
 	printf( "%d\n", root->data );
 }
@@ -124,7 +124,7 @@ int main( int argc, const char* argv[] ) {
 				scanf( "%d", &inputNumber );
 				inputValues[ i ] = inputNumber;	
 			}
-			printf("Input Values:\n");
+			printf("Input values:\n");
 			printIntArray( inputValues, count );
 
 			TreeNode *treeRoot = NULL;
@@ -137,7 +137,7 @@ int main( int argc, const char* argv[] ) {
 			cleanup_tree( treeRoot );
 		}
 		else {
-			printf("# must be greater than 0\n")
+			printf("# must be greater than 0\n");
 		}
 	} else {
 		printf("Usage: bst #\n");
