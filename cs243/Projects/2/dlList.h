@@ -20,6 +20,8 @@ typedef struct { } * DlList_T;
 
 #endif
 
+void dll( DlList_T lst );
+
 /// dll_create constructs an instance of an empty double-linked list.
 /// @return instance of double-linked list (this is a pointer).
 DlList_T dll_create( void );
