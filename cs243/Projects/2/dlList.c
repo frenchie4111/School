@@ -24,6 +24,7 @@ typedef DlList_Head *DlList_T;
 
 #define _DLL_IMPL_
 #include "dlList.h"
+#include "dlList-extra.h"
 
 static DlList_Node *dll_node_create( void *data, DlList_Node *prev, DlList_Node *next ) {
     DlList_Node *new_node = ( DlList_Node * )malloc( sizeof( DlList_Node ) );
@@ -84,15 +85,21 @@ int dll_has_next( DlList_T lst ) {
 }
 
 void *dll_next( DlList_T lst ) {
-    void *data = lst->cursor->data;
-    lst->cursor = lst->cursor->next;
-    return data;
+    if( lst->cursor->next ) {
+        void *data = lst->cursor->data;
+        lst->cursor = lst->cursor->next;
+        return data;
+    }
+    return NULL;
 }
 
 void *dll_prev( DlList_T lst ) {
-    void *data = lst->cursor->data;
-    lst->cursor = lst->cursor->prev;
-    return data;
+    if( lst->cursor->prev ) {
+        void *data = lst->cursor->data;
+        lst->cursor = lst->cursor->prev;
+        return data;
+    }
+    return NULL;
 }
 
 int dll_size( DlList_T lst ) {
@@ -116,7 +123,6 @@ void dll_append( DlList_T lst, void *data ) {
 
 void dll_print_node( DlList_Node *node ) {
     printf( "Node: %s\n", (char *)node->data );
-
 }
 
 void dll_print_node_children( DlList_Node *node ) {
@@ -138,7 +144,7 @@ void dll_print_node_children( DlList_Node *node ) {
 }
 
 void dll_insert_at( DlList_T lst, int indx, void *data ) {
-    if( indx >= dll_size( lst ) )
+    if( indx >= dll_size( lst ) || indx < 0 )
         return;
     lst->size++;
     
@@ -188,9 +194,8 @@ void *dll_pop( DlList_T lst, int indx ) {
 
     for( int i = 0; i < indx && current != NULL; i++, current = current->next );
 
-    dll_print_node( current );
-
     if( current ) {
+        
         void *data = current->data;
 
         if( current->prev )
@@ -219,10 +224,11 @@ void *dll_pop( DlList_T lst, int indx ) {
 
 int dll_index( DlList_T lst, void *data ) {
     DlList_Node *current = lst->first;
-    int counter;
+    int counter = 0;
     while( current != NULL ) {
-        if( current->data == data )
+        if( current->data == data ) {
             return counter;
+        }
         counter++;
 
         current = current->next;
@@ -255,4 +261,34 @@ void dll( DlList_T lst ) {
     } else {
         printf("NULL\n");
     }
+}
+
+/*
+ * BEGIN DLLIST-EXTRA FUNCTIONS
+ */
+
+void *dll_current( DlList_T lst ) {
+    return lst->cursor->data;
+}
+
+void *dll_first( DlList_T lst ) {
+    lst->cursor = lst->first;
+    return lst->cursor->data;
+}
+
+void *dll_last( DlList_T lst ) {
+    dll_move_to( lst, dll_size( lst ) - 1 );
+    return lst->cursor->data;
+}
+
+void *dll_pop_cursor( DlList_T lst ) {
+    return dll_pop( lst, dll_get_cursor_index( lst ) );
+}
+
+int dll_get_cursor_index( DlList_T lst ) {
+    return( dll_index( lst, dll_current( lst ) ) );
+}
+
+void dll_insert_at_cursor( DlList_T lst, void *data ) {
+    dll_insert_at( lst, dll_index( lst, lst->cursor->data ), data );
 }

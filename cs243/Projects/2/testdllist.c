@@ -8,21 +8,24 @@
 #include <stdlib.h>
 
 #include "dlList.h"
+#include "dlList-extra.h"
 
 // Assumes all data is char *
 void dll_print( DlList_T test ) {
     printf("dll fowards:\n");
-    dll_move_to( test, 0 );
-    while( dll_has_next( test ) ) {
-        printf( "\t%s\n", (char *)dll_next( test ) );
+    dll_first( test );
+    void *cur;
+    while( (cur = dll_next( test ) ) != NULL ) {
+        printf( "\t%s\n", (char *)cur );
     }
 }
 
 void dll_backwards( DlList_T test ) {
     printf("dll backwards:\n");
-    dll_move_to( test, dll_size( test ) -1  );
-    while( dll_has_next( test ) ) {
-        printf( "\t%s\n", (char *)dll_prev( test ) );
+    dll_last( test );
+    void *cur;
+    while( (cur = dll_prev( test ) ) != NULL ) {
+        printf( "\t%s\n", (char *)cur );
     }
 }
 
@@ -62,8 +65,13 @@ int main( int argc, const char* argv[] ) {
     printf("Injecting at 2\n");
     char *inj = (char *)malloc( sizeof( char ) * 6 );
     strcpy( inj, "injec" );
-
     dll_insert_at( test, 2, inj );
+    dll_backwards( test );
+
+    printf("Injecting at 2\n");
+    char *inj2 = (char *)malloc( sizeof( char ) * 6 );
+    strcpy( inj2, "inje2" );
+    dll_insert_at( test, 0, inj2 );
     dll_backwards( test );
 
     printf("Testing get 2: ");
