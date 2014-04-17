@@ -87,13 +87,10 @@ int main( int argc, const char* argv[] ) {
     strcpy( setstr, "set2" );
     free( dll_set( test, 2, setstr ) );
     dll_print( test );
-    dll(test);
 
-    dll( test );
     printf("Testing Pop 2: ");
     void *popped = dll_pop( test, 2 );
     printf( "popp %s\n", (char *) ((popped)?popped:"NULL") );
-    dll( test );
     dll_print( test );
     dll_backwards( test );
 

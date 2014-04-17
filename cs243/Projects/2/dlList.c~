@@ -96,12 +96,10 @@ void *dll_next( DlList_T lst ) {
 }
 
 void *dll_prev( DlList_T lst ) {
-    if( lst->cursor ) {
-        if( lst->cursor->prev ) {
-            void *data = lst->cursor->data;
-            lst->cursor = lst->cursor->prev;
-            return data;
-        }
+    if( lst->cursor->prev ) {
+        void *data = lst->cursor->data;
+        lst->cursor = lst->cursor->prev;
+        return data;
     }
     return NULL;
 }
