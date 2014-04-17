@@ -14,6 +14,8 @@
 
 #define MAX_LINE (80)
 
+char *getLine( FILE *f );
+
 int isRunning = 1;
 int changed = 0;
 char fileName[MAX_LINE] = "";
@@ -73,23 +75,18 @@ void delete( DlList_T fileList ) {
 
 void insert( DlList_T fileList ) {
     changed = 1;
-    int read = 0;
     int current = dll_get_cursor_index( fileList );
     do {
-        char *line;
-        size_t len = 0;
-        getline( &line, &len, stdin );
+        char *line = getLine( stdin );
 
-        if( read != -1 ) {
-            if ( line[ strlen( line ) - 1 ] == '\n' )
-                line[ strlen( line ) - 1 ] = '\0';
-            if( !strcmp( line, "." ) )
-                break;
+        if ( line[ strlen( line ) - 1 ] == '\n' )
+            line[ strlen( line ) - 1 ] = '\0';
+        if( !strcmp( line, "." ) )
+            break;
 
-            dll_insert_at( fileList, current, line );
-            current++;
-        }
-    } while( read != -1 );
+        dll_insert_at( fileList, current, line );
+        current++;
+    } while( !feof( stdin ) );
 }
 
 void currLineNum( DlList_T fileList ) {
@@ -118,6 +115,15 @@ void forceQuit( DlList_T fileList ) {
     isRunning = 0;
 }
 
+char *getLine( FILE *f ) {
+        char *line = calloc( sizeof( char ), MAX_LINE + 1);
+	int c = ' ';
+	int curr = 0;
+	for( int i = 0; i < MAX_LINE && (( c = getc(f) ) != '\n') && c != '\0' && c != EOF; i++, line[curr++] = c );
+
+	return line;
+}
+
 // will be 14
 #define NUM_COMMANDS (12)
 void (*commandFunctions[NUM_COMMANDS])(DlList_T fileList) = { quit, printLine, next, prev, last, delete, insert, currLineNum, size, printAll, quit, forceQuit };
@@ -125,25 +131,13 @@ char *commands[NUM_COMMANDS] = { "q", ".", "+", "-", "$", "d", "i", ".=", "$=", 
 
 DlList_T readFile( const char *filename ) {
     DlList_T fileList = dll_create();
-    size_t size = MAX_LINE;
-    ssize_t read = 0;
 
     FILE *f = fopen( filename, "r" );
 
     do {
-        char *line = malloc( sizeof( char ) * size + 1);
-        printf("%lx\n", (long)line);
-        read = getline( &line, &size, f );
-        printf("%lx\n", (long)line);
-        if ( line[ size ] == '\n' )
-            line[ strlen( line ) - 1 ] = '\0';
-        printf("%lx\n", (long)line);
-        if( read != -1 )
-        {
-            dll_append( fileList, line );
-            continue;
-        }
-    } while( read != -1 );
+	char *line = getLine( f );
+	dll_append( fileList, line );
+    } while( !feof( f ) );
 
     fclose( f );
     return fileList;
@@ -161,10 +155,7 @@ int main( int argc, const char* argv[] ) {
         DlList_T fileList = readFile( argv[1] );
 
         while( isRunning ) {
-            char *line;
-            size_t len = 0;
-            getline( &line, &len, stdin );
-            line[ strlen( line ) - 1 ] = '\0';
+            char *line = getLine( stdin );
 
             int ranCommand = 0;
             for( int i = 0; i < NUM_COMMANDS; i++ ) {
@@ -220,6 +211,9 @@ int main( int argc, const char* argv[] ) {
 
                     printf("filename: %s\n", newFileName);
                 }
+            }
+	    if( !ranCommand ) {
+                printf("? Command not reconized");
             }
 
             free( line );
