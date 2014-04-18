@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <errno.h>
 
 #include "dlList.h"
 #include "dlList-extra.h"
@@ -110,7 +111,11 @@ void insertAfter( DlList_T fileList ) {
 }
 
 void currLineNum( DlList_T fileList ) {
-    printf("%d\n", dll_get_cursor_index( fileList ) + 1 );
+    if( dll_size( fileList ) == 0 ) {
+        printf("0\n");
+    } else {
+        printf("%d\n", dll_get_cursor_index( fileList ) + 1 );
+    }
 }
 
 void size( DlList_T fileList ) {
@@ -152,19 +157,22 @@ char *commands[NUM_COMMANDS] = { "q", ".", "+", "-", "$", "d", "i", ".=", "$=", 
 DlList_T readFile( const char *filename ) {
     DlList_T fileList = dll_create();
 
-    FILE *f = fopen( filename, "r" );
+    FILE *f = fopen( filename, "r+" );
 
     if( !f ) {
-	    fprintf( stderr, "could not read file '%s'", filename );
+        perror("open failed");
+	    fprintf( stderr, "could not read file '%s'\n", filename );
     	return NULL;
     }
 
     do {
-	char *line = getLine( f );
-	dll_append( fileList, line );
+	    char *line = getLine( f );
+	    dll_append( fileList, line );
     } while( !feof( f ) );
 
     fclose( f );
+
+    memcpy( fileName, filename, strlen( filename ) );
     return fileList;
 }
 
@@ -179,10 +187,13 @@ int main( int argc, const char* argv[] ) {
     DlList_T fileList;
 
     if( argc > 1 ) {
-        DlList_T fileList = readFile( argv[1] );
-	if( !fileList )
-            return 0;
-    } else {
+        fileList = readFile( argv[1] );
+
+        if( !fileList ) { // Read File failed, probably unreadable
+            fileList = dll_create();
+        } 
+    }
+    else {
         printf("no file supplied.\n");
         fileList = dll_create();
     }
@@ -190,6 +201,7 @@ int main( int argc, const char* argv[] ) {
     while( isRunning ) {
         char *line = getLine( stdin );
         int ranCommand = 0;
+        // printf("Responding to command '%s': ", line);
         for( int i = 0; i < NUM_COMMANDS; i++ ) {
             if( !strcmp( line, commands[i] ) ) {
                 commandFunctions[i]( fileList );
@@ -212,17 +224,13 @@ int main( int argc, const char* argv[] ) {
                     isRunning = 0;
                 }
 
-                char newFileName[MAX_LINE];
+                char newFileName[ MAX_LINE ];
+                memset(newFileName, 0, sizeof(char) * MAX_LINE);
                 memcpy( newFileName, &line[spaces], strlen( line ) );
                 newFileName[ strlen( line ) - spaces ] = '\0';
 
                 if( strlen( newFileName ) == 0 ) {
-                    if( strlen( fileName ) > 0 ) {
-                        memcpy( newFileName, fileName, strlen( fileName ) );
-                    } else {
-                        printf("?\n");
-                        continue;
-                    }
+                    memcpy( newFileName, fileName, strlen( fileName ) );
                 } else {
                     memcpy( fileName, newFileName, strlen( newFileName ) );
                 }
@@ -230,7 +238,9 @@ int main( int argc, const char* argv[] ) {
                 FILE *fp = fopen( newFileName, "w" );
 
                 if( !fp ) {
-                    perror("open failed: ");
+                    perror("open failed");
+	                fprintf( stderr, "could not read file '%s'\n", newFileName );
+                    continue;
                 }
                 dll_first( fileList );
                 void *data;
