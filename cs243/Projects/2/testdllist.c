@@ -29,22 +29,9 @@ void dll_backwards( DlList_T test ) {
     }
 }
 
-/**
- * Main function
- *
- * (a) Tests insert and delete operations.
- * (b) Tests move forward beyond last element.
- * (c) Tests move back beyond ﬁrst element.
- * (d) Tests cursor absolute and relative positioning.
- * (e) Tests cursor state
- * 
- * @param argc the number of arguments
- * @param argv array of arguments
- * @returns int the error code; 0 if no error
- */
-int main( int argc, const char* argv[] ) {
-    DlList_T test = dll_create();
+DlList_T test;
 
+void testInsertAndDelete() {
     printf("Adding test1\n");
     char *str = (char *)malloc( sizeof( char ) * 6 );
     strcpy( str, "test1" );
@@ -97,6 +84,45 @@ int main( int argc, const char* argv[] ) {
     printf("index 'test2' = %d\n", dll_index( test, str2 ) );
 
     printf("dllempty %d\n", dll_empty( test ));
+}
+
+void testCursor() {
+    dll_print( test );
+
+    dll_next( test );
+    printf( "%s\n", (char *)dll_current( test ) );
+    dll_prev( test );
+    printf( "%s\n", (char *)dll_current( test ) );
+
+    while( dll_next(test) );
+    printf( "last %s\n", (char *)dll_current( test ) );
+
+    while( dll_prev(test) );
+    printf( "first %s\n", (char *)dll_current( test ) );
+
+    dll_move_to( test, 1 );
+    printf( "index 1 %s\n", (char *)dll_current( test ) );    
+}
+
+/**
+ * Main function
+ *
+ * (a) Tests insert and delete operations.
+ * (b) Tests move forward beyond last element.
+ * (c) Tests move back beyond ﬁrst element.
+ * (d) Tests cursor absolute and relative positioning.
+ * (e) Tests cursor state
+ * 
+ * @param argc the number of arguments
+ * @param argv array of arguments
+ * @returns int the error code; 0 if no error
+ */
+int main( int argc, const char* argv[] ) {
+    test = dll_create();
+
+    testInsertAndDelete();
+    testCursor();
 
     dll_destroy( test );
 }
+

@@ -25,8 +25,19 @@ void *dll_first( DlList_T lst );
  */
 void *dll_last( DlList_T lst );
 
-void *dll_pop_cursor( DlList_T lst );
-
+/**
+ * Returns the index value of the cursor
+ * @param  lst The list to perform the operation on
+ * @return     Returns the current position of the cursor
+ */
 int dll_get_cursor_index( DlList_T lst );
+
+/**
+ * Pops the value at the cursor
+ * @param  lst The list to perform the operation on 
+ * @return     The data that the popped node refered to.
+ *                  caller is responsible for freeing
+ */
+void *dll_pop_cursor( DlList_T lst );
 
 #endif

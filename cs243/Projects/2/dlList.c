@@ -8,12 +8,22 @@
 
 typedef struct DlList_Node DlList_Node;
 
+/**
+ * DlList_Node Struct
+ * Struct for node of DlList_T
+ */
 struct DlList_Node {
     DlList_Node *prev;
     DlList_Node *next;
     void *data;
 };
 
+/**
+ * DlList_Head Struct
+ * Struct for head of DlList_T
+ *
+ * Stores the first Node, and the cursor node
+ */
 typedef struct DlList_Head {
     DlList_Node *first;
     DlList_Node *cursor;
@@ -54,6 +64,7 @@ void dll_destroy( DlList_T lst ) {
     dll_clear( lst );
     free( lst );
 }
+
 
 void dll_clear( DlList_T lst ) {    
     DlList_Node *current_node = lst->first;
