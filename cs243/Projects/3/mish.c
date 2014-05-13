@@ -13,22 +13,30 @@
 
 #define MAX_ARG (80)
 
+int is_running = 1;
+int verbose = 1;
+int command_count = 1;
+dll history;
+
 void fork_external_command( int argc, char *argv[] )
 {
 	int pid = fork();
 
-	if( pid == 0 )
-	{
+	if( pid == 0 ) {
+		if( verbose )
+			printf("\texecvp: %s\n", argv[0]);
 		execvp( argv[0], argv );
 
-		printf("Command Not Found\n");
+		printf("%s: No such file or directory\n", argv[0]);
 		exit( EXIT_FAILURE );
 	} else {
 		int status;
 
+		if( verbose )
+			printf("\twait for pid %d: %s\n", pid, argv[0]);
 		waitpid( pid, &status, 0 );
 
-		printf("Exit Status %d\n", status);
+		printf( "command status: %d\n", status );
 	}
 }
 
@@ -80,10 +88,6 @@ dll tokenize_input( char *input )
 	return tokens;
 }
 
-int is_running = 1;
-int verbose = 1;
-int command_count = 0;
-
 void mish_verbose( int argc, char *argv[] ) {
 	if( argc > 1 ) {
 		if( !strcmp( argv[1], "on" ) ) {
@@ -107,7 +111,11 @@ void mish_help( int argc, char *argv[] ) {
 }
 
 void mish_history( int argc, char *argv[] ) {
-	printf("history\n");
+	dll_curs_reset( history );
+	int i = 1;
+	while( dll_curs_has_next( history ) ) {
+		printf("%d: %s\n", i++, dll_curs_next( history ) );
+	}
 }
 
 void mish_quit( int argc, char *argv[] ) {
@@ -131,12 +139,18 @@ char *commands[INTERNAL_COMMANDS] =
 int main( int argc, const char* argv[] ) {
 	size_t len = 10;
 	char *line = (char *)malloc( sizeof( char ) * len );
+	history = dll_create();
 
 	while( is_running ) {
 		printf("mish[%d]> ", command_count);
 		len = getline( &line, &len, stdin );
 		if( feof( stdin ) )
 			break;
+
+		char *new_history_item = (char *)malloc( strlen( line ) );
+		strcpy( new_history_item, line );
+		new_history_item[ strlen( new_history_item ) - 1 ] = '\0';
+		dll_push( history, new_history_item );
 
 		if( verbose )
 			printf("\tcommand: %s\n\n", line);
@@ -163,6 +177,8 @@ int main( int argc, const char* argv[] ) {
 			int command_run = 0;
 			for( int i = 0; i < INTERNAL_COMMANDS; i++ ) {
 				if( !strcmp( new_args[0], commands[i] ) ) {
+					if( verbose )
+						printf("\tinternal command: %s\n", new_args[0]);
 					internal_commands[i]( new_argc, new_args );
 					command_run = 1;
 					break;
@@ -180,4 +196,5 @@ int main( int argc, const char* argv[] ) {
 		dll_destroy( tokens );
 	}
 	free( line );
+	dll_destroy(history);
 }
