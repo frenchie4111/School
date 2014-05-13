@@ -1,8 +1,9 @@
 /**
- * File: <<TEMPLATE MARK>>
- * <<TEMPLATE MARK>>
+ * File: mish.c
+ * CS243 Project 3 mish main source file
  * @author mdl7240 : Mike Lyons
  */
+ 
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h> 
@@ -19,6 +20,13 @@ int verbose = 1;
 int command_count = 1;
 dll history;
 
+/**
+ * @brief Runs given command after forking
+ * @details Uses execvp to run given command after forking
+ * 
+ * @param argc Number of arguments
+ * @param argv List of arguments, null terminated, first item is command
+ */
 void fork_external_command( int argc, char *argv[] )
 {
 	int pid = fork();
@@ -42,12 +50,27 @@ void fork_external_command( int argc, char *argv[] )
 	}
 }
 
+/**
+ * @brief Adds the given char * to dll
+ * @details Copies given char * to heap and adds it to the dll
+ * 
+ * @param tokens The dll to add token to
+ * @param token The token to add
+ */
 void token_add_to_dll( dll tokens, char *token ) {
 	char *tokenCpy = (char *)malloc( ( strlen( token ) + 1 ) * sizeof( char ) );
 	strcpy( tokenCpy, token );
 	dll_push( tokens, tokenCpy );
 }
 
+/**
+ * @brief Takes input stream and tokenizes it
+ * @details Takes input stream and makes a dll, one node for
+ * 			each token
+ * 
+ * @param input input line
+ * @return dll with tokens
+ */
 dll tokenize_input( char *input )
 {
 	dll tokens = dll_create();
@@ -90,6 +113,13 @@ dll tokenize_input( char *input )
 	return tokens;
 }
 
+/**
+ * @brief Mish verbose command
+ * @details Sets verbose of mish console
+ * 
+ * @param argc Count of arguments
+ * @param argv arguments
+ */
 void mish_verbose( int argc, char *argv[] ) {
 	if( argc > 1 ) {
 		if( !strcmp( argv[1], "on" ) ) {
@@ -104,6 +134,13 @@ void mish_verbose( int argc, char *argv[] ) {
 	}
 }
 
+/**
+ * @brief Mish help command
+ * @details Prints internal commands of mish console
+ * 
+ * @param argc Count of arguments
+ * @param argv arguments
+ */
 void mish_help( int argc, char *argv[] ) {
 	printf("Internal Commands:\n");
 	printf("\tVerbose: verbose [on|off] sets verbose mode\n");
@@ -112,6 +149,13 @@ void mish_help( int argc, char *argv[] ) {
 	printf("\tquit: quits mish terminal\n");
 }
 
+/**
+ * @brief Mish history command
+ * @details Prints previous commands
+ * 
+ * @param argc Count of arguments
+ * @param argv arguments
+ */
 void mish_history( int argc, char *argv[] ) {
 	dll_curs_reset( history );
 	int i = 1;
@@ -120,6 +164,13 @@ void mish_history( int argc, char *argv[] ) {
 	}
 }
 
+/**
+ * @brief Mish quit command
+ * @details Quits mish console
+ * 
+ * @param argc Count of arguments
+ * @param argv Argv
+ */
 void mish_quit( int argc, char *argv[] ) {
 	is_running = 0;
 }
