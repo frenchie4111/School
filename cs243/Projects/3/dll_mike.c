@@ -1,3 +1,9 @@
+/**
+ * File: dll_mike.c
+ * Dll_Mike Library
+ * @author mdl7240 : Mike Lyons
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -250,12 +256,12 @@ int dll_curs_has_next( dll list ) {
 
 static void dll_n_print( dll_n *node ) {
 	if( node ) {
-		printf("Node '%s'\n", node->data);
+		printf("Node '%s'\n", (char *)node->data);
 		if( node->prev ) {
-			printf("\tprev '%s'\n", node->prev->data);
+			printf("\tprev '%s'\n", (char *)node->prev->data);
 		}
 		if( node->next ) {
-			printf("\tnext '%s'\n", node->next->data);
+			printf("\tnext '%s'\n", (char *)node->next->data);
 		}
 	}
 }
@@ -264,12 +270,12 @@ void dll_print( dll list ) {
 	dll_n *node = list->first;
 	printf("count %d\n", list->size);
 	if( list->first )
-		printf("first '%s'\n", list->first->data);
+		printf("first '%s'\n", (char *)list->first->data);
 	while( node ) {
 		dll_n_print( node );
 
 		node = node->next;
 	}
 	if( list->last )
-		printf("last '%s'\n", list->last->data);
+		printf("last '%s'\n", (char *)list->last->data);
 }

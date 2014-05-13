@@ -1,3 +1,9 @@
+/**
+ * File: dll_mike.h
+ * dll_mike library header file
+ * @author mdl7240 : Mike Lyons
+ */
+
 #ifndef DLL_MIKE_H
 #define DLL_MIKE_H
 

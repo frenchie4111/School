@@ -335,7 +335,7 @@ int main( int argc, const char* argv[] ) {
                 while( (data = dll_next( fileList )) != NULL ) { // Write file
                     fprintf(fp, "%s\n", (char *)data);
                 }
-                fprintf(fp, "%s", (char *)dll_current( fileList ));
+                fprintf(fp, "%s\n", (char *)dll_current( fileList ));
                 dll_last( fileList );
 
                 fclose( fp );
@@ -354,3 +354,55 @@ int main( int argc, const char* argv[] ) {
     printf("\nBye\n");
     dll_destroy( fileList );
 }
+
+
+// $Log: $ 
+// commit f6a06bb03cf1a4ec0a799f56396cbe1621263ae3
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Fri Apr 18 19:30:03 2014 -0400
+// 
+//     Added comments
+// 
+// commit 4a72678e88adb1a9f2f7f68943d8f1680a846d77
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Fri Apr 18 19:04:48 2014 -0400
+// 
+//     Almost matches try output. Still having error on 13
+// 
+// commit 6097520aa427064a9c2fb9b6ab46d2a2e45b8cbc
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Wed Apr 16 22:56:21 2014 -0400
+// 
+//     Trying to match output with try
+// 
+// commit 4adc3bafb611d97c3e62a67e2d5068a6c6c31edb
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Wed Apr 16 21:21:53 2014 -0400
+// 
+//     Removed getline, it was causing valgrind leaks
+// 
+// commit 582e0c65b60e06b271c974fe094ae5537f6e9e0b
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Wed Apr 16 20:53:32 2014 -0400
+// 
+//     Code complete. Working with valgrind
+// 
+// commit 6b8365017b2e8e0560808e84cbd07e1982011557
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Fri Apr 11 18:31:28 2014 -0400
+// 
+//     dlList done. Started mrEd
+// 
+// commit c33e63b78db935584771561b8dabafcd710e574e
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Tue Apr 1 12:01:46 2014 -0400
+// 
+//     Added .gitignore and Makefile (generated with gmakemake)
+// 
+// commit 15f77a29d0ef65a98ebd52366ebc6c5ab0003171
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Tue Apr 1 11:56:22 2014 -0400
+// 
+//     Initial Commit of mrEd
+// 
+

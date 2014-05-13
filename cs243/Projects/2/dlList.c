@@ -298,3 +298,54 @@ int dll_get_cursor_index( DlList_T lst ) {
 void dll_insert_at_cursor( DlList_T lst, void *data ) {
     dll_insert_at( lst, dll_index( lst, lst->cursor->data ), data );
 }
+
+// $Log: $ 
+// commit f6a06bb03cf1a4ec0a799f56396cbe1621263ae3
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Fri Apr 18 19:30:03 2014 -0400
+// 
+//     Added comments
+// 
+// commit 6097520aa427064a9c2fb9b6ab46d2a2e45b8cbc
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Wed Apr 16 22:56:21 2014 -0400
+// 
+//     Trying to match output with try
+// 
+// commit 582e0c65b60e06b271c974fe094ae5537f6e9e0b
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Wed Apr 16 20:53:32 2014 -0400
+// 
+//     Code complete. Working with valgrind
+// 
+// commit 6b8365017b2e8e0560808e84cbd07e1982011557
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Fri Apr 11 18:31:28 2014 -0400
+// 
+//     dlList done. Started mrEd
+// 
+// commit 9bc47e7e8e68609d8cb5b17200da6e9488f86e11
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Thu Apr 3 10:49:51 2014 -0400
+// 
+//     Updated makefile, added template code to testdllis
+// 
+// commit 3b39978547706d91bdce0c97032842bf1903db56
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Wed Apr 2 18:56:49 2014 -0400
+// 
+//     started adding struct declartion to dlList.c
+// 
+// commit c33e63b78db935584771561b8dabafcd710e574e
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Tue Apr 1 12:01:46 2014 -0400
+// 
+//     Added .gitignore and Makefile (generated with gmakemake)
+// 
+// commit 15f77a29d0ef65a98ebd52366ebc6c5ab0003171
+// Author: Mike Lyons <mdl0394@gmail.com>
+// Date:   Tue Apr 1 11:56:22 2014 -0400
+// 
+//     Initial Commit of mrEd
+// 
+

@@ -3,6 +3,7 @@
  * <<TEMPLATE MARK>>
  * @author mdl7240 : Mike Lyons
  */
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h> 
 #include <string.h>
@@ -42,7 +43,7 @@ void fork_external_command( int argc, char *argv[] )
 }
 
 void token_add_to_dll( dll tokens, char *token ) {
-	char *tokenCpy = (char *)malloc( strlen( token ) * sizeof( char ) );
+	char *tokenCpy = (char *)malloc( ( strlen( token ) + 1 ) * sizeof( char ) );
 	strcpy( tokenCpy, token );
 	dll_push( tokens, tokenCpy );
 }
@@ -115,7 +116,7 @@ void mish_history( int argc, char *argv[] ) {
 	dll_curs_reset( history );
 	int i = 1;
 	while( dll_curs_has_next( history ) ) {
-		printf("%d: %s\n", i++, dll_curs_next( history ) );
+		printf("%d: %s\n", i++, (char *)dll_curs_next( history ) );
 	}
 }
 
@@ -148,7 +149,7 @@ int main( int argc, const char* argv[] ) {
 		if( feof( stdin ) )
 			break;
 
-		char *new_history_item = (char *)malloc( strlen( line ) );
+		char *new_history_item = (char *)malloc( strlen( line ) + 1 );
 		strcpy( new_history_item, line );
 		new_history_item[ strlen( new_history_item ) - 1 ] = '\0';
 		dll_push( history, new_history_item );
