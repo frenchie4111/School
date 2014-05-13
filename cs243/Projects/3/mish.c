@@ -13,33 +13,13 @@
 
 #define MAX_ARG (80)
 
-void exec_command( char *cmd, char *args[] )
-{
-	char *PATH = getenv("PATH");
-	char *token;
-	for( ; token != NULL; PATH = NULL )
-	{
-		token = strtok( PATH, ":" );
-		if( token == NULL )
-			break;
-
-		char *fullPath = (char *)malloc( strlen( token ) + strlen( cmd ) + 1 );
-		strcpy( fullPath, token );
-		strcat( fullPath, "/" );
-		strcat( fullPath, cmd );
-
-		execvp( fullPath, args );
-		free( fullPath );
-	}
-}
-
 void fork_external_command( int argc, char *argv[] )
 {
 	int pid = fork();
 
 	if( pid == 0 )
 	{
-		exec_command( argv[0], argv );
+		execvp( argv[0], argv );
 
 		printf("Command Not Found\n");
 		exit( EXIT_FAILURE );
