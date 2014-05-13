@@ -27,7 +27,7 @@ void fork_external_command( int argc, char *argv[] )
 			printf("\texecvp: %s\n", argv[0]);
 		execvp( argv[0], argv );
 
-		printf("%s: No such file or directory\n", argv[0]);
+		fprintf(stderr, "%s: No such file or directory\n", argv[0]);
 		exit( EXIT_FAILURE );
 	} else {
 		int status;
@@ -36,7 +36,8 @@ void fork_external_command( int argc, char *argv[] )
 			printf("\twait for pid %d: %s\n", pid, argv[0]);
 		waitpid( pid, &status, 0 );
 
-		printf( "command status: %d\n", status );
+		if( status != 0 )
+			fprintf(stderr,  "command status: %d\n", status );
 	}
 }
 
@@ -95,10 +96,10 @@ void mish_verbose( int argc, char *argv[] ) {
 		} else if( !strcmp( argv[1], "off" ) ) {
 			verbose = 0;
 		} else {
-			printf("usage: verbose [on|off]\n");
+			fprintf(stderr, "usage: verbose [on|off]\n");
 		}
 	} else {
-		printf("usage: verbose [on|off]\n");
+		fprintf(stderr, "usage: verbose [on|off]\n");
 	}
 }
 
